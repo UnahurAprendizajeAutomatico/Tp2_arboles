@@ -1,0 +1,15 @@
+Día,Pronóstico,Temperatura,Humedad,Viento,¿Juega?
+D1,soleado,cálido,alta,débil,no
+D2,soleado,cálido,alta,fuerte,no
+D3,nublado,cálido,alta,débil,si
+D4,lluvioso,templado,alta,débil,si
+D5,lluvioso,frío,normal,débil,si
+D6,lluvioso,frío,normal,fuerte,no
+D7,nublado,frío,normal,fuerte,si
+D8,soleado,templado,alta,débil,no
+D9,soleado,frío,normal,débil,si
+D10,lluvioso,templado,normal,débil,si
+D11,soleado,templado,normal,fuerte,si
+D12,nublado,templado,alta,fuerte,si
+D13,nublado,cálido,normal,débil,si
+D14,lluvioso,templado,alta,fuerte,no
