@@ -1,4 +1,5 @@
-class NodoArbol:
-    def __init__(self, valor):
-        self.valor = valor
+class Nodo:
+    def __init__(self, data):
+        self.data = data
         self.hijos = []
+        self.padre = None
