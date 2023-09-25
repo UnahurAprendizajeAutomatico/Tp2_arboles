@@ -1,0 +1,19 @@
+digraph {
+	"Raíz"
+	"Raíz" -> "Hijo 1"
+	"Hijo 1"
+	"Hijo 1" -> A
+	A
+	"Raíz" -> "hijo 2"
+	"hijo 2"
+	"hijo 2" -> B
+	B
+	"Raíz" -> "hijo 3"
+	"hijo 3"
+	"hijo 3" -> C
+	C
+	"hijo 3" -> F
+	F
+	"hijo 3" -> g
+	g
+}
