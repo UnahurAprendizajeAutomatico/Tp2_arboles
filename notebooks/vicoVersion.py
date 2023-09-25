@@ -101,7 +101,7 @@ atributo -> atributo a expandir
 atributos_restantes -> numero de atributos que no se van a usar, 0 utiliza todos los atributos, 1 utiliza todos los atributos menos 1.... tiene que ser minimo 1
 :return subarbol (Tree) y DataFrame reducido (sin el atributo)
 """
-def generar_subarbol(dataset: pd.DataFrame, target_atributo, atributo, atributos_restantes=1):
+def generar_subarbol(dataset: pd.DataFrame, target_atributo, atributo, atributos_restantes=2):
     #print(atributo)
     clases_restantes = list(dataset.columns)
     clases_restantes.remove(target_atributo)
