@@ -11,6 +11,15 @@ class ArbolN:
         new_nodo = Nodo(hijo_data)
         nodo_padre.hijos.append(new_nodo)
 
+    def construir_arbol( self, nodo, hijos):
+        if not hijos:
+            return
+        for nombre_hijo in hijos:
+            self.agregar_hijo(nodo, nombre_hijo)
+
+        for i, hijo in enumerate(nodo.hijos):
+            self.construir_arbol(hijo, hijos[i + 1:])
+
     def visualizar(self):
         def generar_grafo(node, dot=None):
             if dot is None:
@@ -23,32 +32,51 @@ class ArbolN:
 
             return dot
 
-        timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")  # Obtener una marca de tiempo única
-        archivo_salida = f"output/arbol_nario_{timestamp}"
+        timestamp = datetime.datetime.now().strftime("%H%M")  # Obtener una marca de tiempo única
+        archivo_salida = f"grafico/arbol_{timestamp}"
 
         dot = generar_grafo(self.raiz)
-        dot.render( "grafico/arbol", view=False)
+        dot.render( archivo_salida, view=False)
 
 
 if __name__ == '__main__':
     print(f'Hola, soy el archivo {__name__} y estoy ejecutando como programa principal')
 
 
-# Crear un árbol n-ario
-my_tree = ArbolN("Raíz")
+# Crear un árbol de ejemplo
+mi_arbol = ArbolN("Raíz")
 
-# Agregar hijos
-my_tree.agregar_hijo(my_tree.raiz, "Hijo 1")
-my_tree.agregar_hijo(my_tree.raiz, 'hijo 2')
-my_tree.agregar_hijo(my_tree.raiz, 'hijo 3')
+# Definir una lista de nombres de hijos para cada nodo
+nombres_hijos = [
+    ['H1', 'H2', 'H3', 'H4'],    # Nodos hijos del nodo raíz
+    ['1m', '2m', '3m'],         # Nodos hijos de H1
+    ['1m', '2m', '3m'],         # Nodos hijos de H2
+    ['Unico'],                  # Nodos hijo de H3
+    [],                         # H4 no tiene hijos
+]
 
-my_tree.agregar_hijo(my_tree.raiz.hijos[0], 'A')
-my_tree.agregar_hijo(my_tree.raiz.hijos[1], 'B')
-my_tree.agregar_hijo(my_tree.raiz.hijos[2], 'C')
+# Construir el árbol de forma recursiva
+# Agregar hijos directos a la raíz (h1, h2, h3, h4)
+# Crear un árbol de ejemplo
+mi_arbol = ArbolN("Raíz")
 
-my_tree.agregar_hijo(my_tree.raiz.hijos[2], 'F')
+# Agregar hijos directos a la raíz (h1, h2, h3, h4)
+hijos_raiz = ["H1", "H2", "H3", "H4"]
+mi_arbol.construir_arbol(mi_arbol.raiz, hijos_raiz)
 
-my_tree.agregar_hijo(my_tree.raiz.hijos[2], 'g')
+# Agregar hijos a H1 (1m, 2m, 3m)
+hijos_h1 = ["1m", "2m", "3m"]
+mi_arbol.construir_arbol(mi_arbol.raiz.hijos[0], hijos_h1)
+
+# Agregar hijos a H2 (1m, 2m, 3m)
+hijos_h2 = ["1m", "2m", "3m"]
+mi_arbol.construir_arbol(mi_arbol.raiz.hijos[1], hijos_h2)
+
+# Agregar un hijo a H3 (Unico)
+hijo_h3 = ["Unico"]
+mi_arbol.construir_arbol(mi_arbol.raiz.hijos[2], hijo_h3)
+
+
 # Imprimir el árbol
-my_tree.visualizar()
+mi_arbol.visualizar()
 
