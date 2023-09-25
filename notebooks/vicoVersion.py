@@ -147,12 +147,49 @@ def generar_subarbol(dataset: pd.DataFrame, target_atributo, atributo, atributos
         else:
             prediccion = "?" # habrá que desarrollar el árbol
             arbol_hijo = generar_subarbol(dataframe_parcial.drop(columns=atributo), target_atributo, buscar_mayor_ganancia(dataframe_parcial, target_atributo))
+            if arbol_hijo.get_node(arbol_hijo.root).data.prediction != "?":
+                prediccion = arbol_hijo.get_node(arbol_hijo.root).data.prediction
+                arbol_hijo = None
 
         nuevo_nodo = subarbol.create_node(c, data=Prediction(prediccion), parent=nodo_atributo.identifier)
         if arbol_hijo is not None:
             subarbol.paste(nuevo_nodo.identifier, arbol_hijo)
 
     return subarbol
+
+def list_to_dict(lst):
+    if len(lst) % 2 != 0:
+        print(lst)
+        raise ValueError("The list must have an even number of elements")
+    result = {}
+    for i in range(0, len(lst), 2):
+        key = lst[i]
+        value = lst[i + 1]
+        result[key] = value
+
+    return result
+
+
+
+def predict(arbol:treelib.Tree, instancia):
+    for path in arbol.paths_to_leaves():
+        node_path = [arbol.get_node(n) for n in path]
+        name_path = [n.tag for n in node_path]
+        data_path = [n.data.prediction for n in node_path]
+
+        instancia_path = list_to_dict(name_path)
+        print(instancia_path)
+        print(instancia)
+        print()
+        for v in instancia_path.keys():
+            if instancia_path[v] != instancia[v]:
+                break
+        else:
+            return "LOGRADO"
+
+    return "ERROR"
+
+
 
 def main():
     # buscamos mayor ganancía:
@@ -164,6 +201,20 @@ def main():
 
     print(arbol.show(stdout=False, data_property="prediction"))
     print(arbol.show(stdout=False))
+    #print(arbol.depth())
+
+    # ahora que tenemos nuestro arbol, es hora de hacer predicciones
+
+    elemento_nuevo = {
+        "Account Balance": 2.0,
+        "Duration of Credit (month)": 2.0,
+        "Payment Status of Previous Credit": 1.0,
+        "Purpose": 9.0,
+        "Sex & Marital Status": 1.0
+        }
+
+    print(predict(arbol, elemento_nuevo))
+
 
 import sys
 import threading
