@@ -178,14 +178,11 @@ def predict(arbol:treelib.Tree, instancia):
         data_path = [n.data.prediction for n in node_path]
 
         instancia_path = list_to_dict(name_path)
-        print(instancia_path)
-        print(instancia)
-        print()
         for v in instancia_path.keys():
             if instancia_path[v] != instancia[v]:
                 break
         else:
-            return "LOGRADO"
+            return data_path[-1]
 
     return "ERROR"
 
@@ -199,8 +196,8 @@ def main():
     mejor_atributo = buscar_mayor_ganancia(dataset,target_atributo)
     arbol = generar_subarbol(dataset, target_atributo, mejor_atributo)
 
-    print(arbol.show(stdout=False, data_property="prediction"))
-    print(arbol.show(stdout=False))
+    #print(arbol.show(stdout=False, data_property="prediction"))
+    #print(arbol.show(stdout=False))
     #print(arbol.depth())
 
     # ahora que tenemos nuestro arbol, es hora de hacer predicciones
@@ -209,7 +206,7 @@ def main():
         "Account Balance": 2.0,
         "Duration of Credit (month)": 2.0,
         "Payment Status of Previous Credit": 1.0,
-        "Purpose": 9.0,
+        "Purpose": 8.0,
         "Sex & Marital Status": 1.0
         }
 
